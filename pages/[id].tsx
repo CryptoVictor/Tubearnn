@@ -85,7 +85,6 @@ const VideoComponenet = (props) => {
       console.log(totalDurationTimeSecs, currentTimeSecs);
       tokensUnc = calculateSol({ duration: currentTimeSecs });
       console.log(tokensUnc);
-      tokens_unc: {tokensUnc};
 
       setElapsed({
         percent:
