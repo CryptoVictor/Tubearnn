@@ -1,28 +1,34 @@
-import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
-import { truncateEthAddress, props } from '../components/Header.tsx';
-import { Program, web3, BN } from '@project-serum/anchor';
-import { useMoralis } from "react-moralis";
-import idl from './idl.json';
+const Solana = '@solana/web3.js';
+const Header = '../components/Header.tsx';
+const Anchor = '@project-serum/anchor';
+const Moralis = "react-moralis";
+const idl = './idl.json';
+
+class index {
+
+constructor(){
 
 // Variables
 
-let tokens_unc = 0;
-let user_tokens = 0;
+tokens_unc = 0;
+user_tokens = 0;
 
 // System Variables
 
-let walletAddress;
-let users, setUsers;
-const { SystemProgram } = web3;
-const network = clusterApiUrl("devnet");
-const opts = {preflightCommitment: "processed"};
-const programID = new PublicKey(idl.metadata.address);
+walletAddress;
+users;
+setUsers;
+SystemProgram = Anchor.web3;
+opts = {preflightCommitment: "processed"};
+programID = "DHBTg3qqcj3Hr1rWDp8SmQKV1d6E8YH4DGzFfdjmP23A";
+
+}
 
 // Utils
 
-const getProvider = () => {
+getProvider(){
 
-    const connection = new Connection(network, opts.preflightCommitment);
+    const connection = new Solana.Connection(opts.preflightCommitment);
     const provider = new AnchorProvider(connection, window.solana, opts.preflightCommitment);
     
     return provider;
@@ -30,15 +36,15 @@ const getProvider = () => {
 
 // Account Section
 
-const connectUser = async () => {
+connectUser(){
 
     try{
 
-    const user = useMoralis();
-    walletAddress = truncateEthAddress(props.user.get("solAddress"));
+    const user = Moralis.useMoralis();
+    walletAddress = Header.truncateEthAddress(Header.props.user.get("solAddress"));
 
 
-    await program.rpc.create_account({
+    program.rpc.create_account({
         accounts: {
             user: walletAddress,
             authority: walletAddress,
@@ -54,18 +60,18 @@ const connectUser = async () => {
     }
 };
 
-const catchInformations = async () => {
+catchInformations(){
 
     try{
 
-    const connection = new Connection(network, opts.preflightCommitment);
+    const connection = new Solana.Connection(network, opts.preflightCommitment);
 	const provider = getProvider();
-	const program = new Program(idl, programID, provider);
+	const program = new Anchor.Program(idl.idl, programID, provider);
 
 		Promise.all(
-			(await connection.getProgramAccounts(programID)).map(
+			(connection.getProgramAccounts(programID)).map(
 				async (user) => ({
-					...(await program.account.user.fetch(user.tokens)),
+					...(program.account.user.fetch(user.tokens)),
 					tokens: user.tokens,
 				})
 			)
@@ -81,11 +87,11 @@ const catchInformations = async () => {
 
 // Rewards Section
 
-const addRewards = async (publicKey) => {
+addRewards({publicKey}) {
 
     try {
     
-    await program.rpc.add_tokens({
+    program.rpc.add_tokens({
         accounts: {
             user: publicKey,
             tokens: user.tokens,
@@ -102,20 +108,20 @@ const addRewards = async (publicKey) => {
     }
 }
 
-const withdrawRewards = async (publicKey) => {
+withdrawRewards({publicKey}) {
 
     if(user_tokens> 1 * web3.LAMPORTS_PER_SOL) {
 
     try {
 
         const provider = getProvider();
-        const program = new Program(idl, programID, provider);
-        await program.rpc.withdraw_tokens(program, {
+        const program = new Anchor.Program(idl.idl, programID, provider);
+        program.rpc.withdraw_tokens(program, {
             accounts: {
                 tokens: user.tokens,
                 user: walletAddress,
             },
-        }, new BN(user_tokens));
+        }, new Anchor.BN(user_tokens));
 
         console.log("Withdrew some money from:", publicKey.toString());
         user_tokens = 0;
@@ -130,5 +136,6 @@ const withdrawRewards = async (publicKey) => {
         console.error("Insufficient funds");
     }
 };
+}
 
-export { withdrawRewards, addRewards, catchInformations, connectUser, tokens_unc, user_tokens, walletAddress };
+module.exports = index;
