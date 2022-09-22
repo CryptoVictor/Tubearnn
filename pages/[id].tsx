@@ -43,7 +43,7 @@ export async function getServerSideProps(context: any) {
   // will be passed to the page component as props
 }
 
-const VideoComponenet = (props) => {
+const VideoComponenet = async(props) => {
   const [elapsed, setElapsed] = useState({ percent: "0%", sol: "0" });
   const playerRef = useRef();
   const { authenticate, isAuthenticated, user, account, isWeb3EnableLoading } =
