@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import { abbreviateNumber, calculateSol } from "../utils";
 
 const Body = (props: {
@@ -27,6 +26,7 @@ const Body = (props: {
                 console.log(error);
               })
             }
+            disabled={props.loading}
             className="inline-flex items-center px-5 py-3 mt-8 font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-500"
           >
             {props.loading ? (
@@ -73,7 +73,7 @@ const Body = (props: {
       ) : props.videos ? (
         <div className="grid grid-cols-3 gap-6 pt-16 px-32 place-content-center">
           {props.videos.map((video: any) => (
-             <Link key={0} href={`/${video.id.videoId}`}>
+            <a href={`/${video.id.videoId}`}>
               <div key={video.etag}>
                 <div className="each mb-10 m-2 shadow-lg border-gray-800 bg-gray-100 relative">
                   <img
@@ -122,7 +122,7 @@ const Body = (props: {
                   </div>
                 </div>
               </div>
-            </Link>
+            </a>
           ))}
         </div>
       ) : (
