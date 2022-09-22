@@ -74,8 +74,7 @@ const Body = (props: {
       ) : props.videos ? (
         <div className="grid grid-cols-3 gap-6 pt-16 px-32 place-content-center">
           {props.videos.map((video: any) => (
-            <Link href={`/${video.id.videoId}`}>
-              </Link>
+            <Link href={`/${video.id.videoId}`}/>
               <div key={video.etag}>
                 <div className="each mb-10 m-2 shadow-lg border-gray-800 bg-gray-100 relative">
                   <img
@@ -125,7 +124,7 @@ const Body = (props: {
                 </div>
               </div>
             </a>
-          ))}
+          )})
         </div>
       ) : (
         <h1>No Video</h1>
