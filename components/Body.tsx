@@ -122,7 +122,7 @@ const Body = (props: {
                 </div>
               </div>
             </a>
-          )))}
+          ))}
         </div>
       ) : (
         <h1>No Video</h1>
