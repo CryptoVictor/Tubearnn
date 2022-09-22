@@ -1,5 +1,4 @@
 import { Fragment, useState } from "react";
-import Link from "next/link";
 import { Popover, Transition } from "@headlessui/react";
 import { MenuIcon } from "@heroicons/react/outline";
 import {
@@ -33,14 +32,14 @@ export default function Header(props: {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
-            <Link href="/">
+            <a href="/">
               <span className="sr-only">Workflow</span>
               <img
                 className="h-8 w-auto sm:h-10"
                 src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
                 alt=""
               />
-            </Link>
+            </a>
           </div>
           <div className="-mr-2 -my-2 md:hidden">
             <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
@@ -69,6 +68,7 @@ export default function Header(props: {
                   <input
                     type="text"
                     onChange={(e) => setQuery(e.target.value)}
+                    onKeyDown={props.handleSubmit}
                     placeholder="Search"
                     className="w-full py-3 pl-12 pr-4 text-gray-500 border rounded-full outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
                   />
@@ -77,7 +77,7 @@ export default function Header(props: {
             )}
           </Popover.Group>
           <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-            <Link
+            <a
               type="button"
               href="/earnings"
               className="text-gray-900 bg-white hover:bg-gray-100  focus:ring-4 focus:outline-none font-medium rounded-lg text-md px-5 py-2.5 text-center inline-flex items-center mr-2"
@@ -97,7 +97,7 @@ export default function Header(props: {
                 />
               </svg>
               Earnings
-            </Link>
+            </a>
             {props.isAuthenticated ? (
               <span className="bg-blue-100 text-blue-800 text-md font-medium inline-flex items-center px-4 py-1 rounded-2xl dark:bg-blue-200 dark:text-blue-800">
                 <svg
@@ -126,6 +126,7 @@ export default function Header(props: {
                       console.log(error);
                     })
                 }
+                disabled={props.loading}
                 className="text-gray-50 bg-blue-600 hover:bg-blue-500 border border-blue-200 focus:ring-4 focus:outline-none focus:ring-blue-100 font-medium rounded-full text-md px-5 py-2.5 text-center inline-flex items-center"
               >
                 <svg
@@ -165,7 +166,7 @@ export default function Header(props: {
           <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
             <div className="py-6 px-5 space-y-6">
               <div className="grid grid-cols-1 gap-y-4 gap-x-8 w-full">
-                <Link
+                <a
                   href="/earnings"
                   className="text-base  text-gray-900 hover:text-gray-700 bg-white hover:bg-gray-100  focus:ring-4 focus:outline-none font-medium rounded-lg text-md px-5 py-2.5 text-center inline-flex items-center mr-2"
                 >
@@ -184,7 +185,7 @@ export default function Header(props: {
                     />
                   </svg>
                   Earnings
-                </Link>
+                </a>
               </div>
               {!props.isVideo && (
                 <form className=" px-2">
