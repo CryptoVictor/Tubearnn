@@ -43,7 +43,7 @@ export async function getServerSideProps(context: any) {
   // will be passed to the page component as props
 }
 
-const VideoComponenet = () => {
+const VideoComponenet = (props) => {
   const [elapsed, setElapsed] = useState({ percent: "0%", sol: "0" });
   const playerRef = useRef();
   const { authenticate, isAuthenticated, user, account, isWeb3EnableLoading } =
@@ -85,6 +85,7 @@ const VideoComponenet = () => {
       console.log(totalDurationTimeSecs, currentTimeSecs);
       tokensUnc = calculateSol({ duration: currentTimeSecs });
       console.log(tokensUnc);
+      tokens_unc: {tokensUnc};
 
       setElapsed({
         percent:
