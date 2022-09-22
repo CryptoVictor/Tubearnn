@@ -39,9 +39,7 @@ export default function Dashboard() {
               className="p-8 mt-6 mb-0 space-y-4 rounded-lg shadow-2xl"
             >
               <div className="text-3xl font-bold py-2 text-center">
-                <div>
-                  $SOL 0.0
-                </div>
+                <Balance/>
               </div>
               <button
                 type="submit"
